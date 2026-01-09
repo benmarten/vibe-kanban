@@ -873,10 +873,10 @@ export function ProjectSettings() {
                       <div className="space-y-2">
                         <Label htmlFor="default-branch">Default Branch</Label>
                         <Select
-                          value={scriptsDraft.default_branch ?? ''}
+                          value={scriptsDraft.default_branch ?? '__auto__'}
                           onValueChange={(value) =>
                             updateScriptsDraft({
-                              default_branch: value || null,
+                              default_branch: value === '__auto__' ? null : value,
                             })
                           }
                           disabled={loadingBranches}
@@ -891,7 +891,7 @@ export function ProjectSettings() {
                             />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="">
+                            <SelectItem value="__auto__">
                               Auto-detect from remote
                             </SelectItem>
                             {branches.map((branch) => (
