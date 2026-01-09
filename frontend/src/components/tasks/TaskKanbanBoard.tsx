@@ -14,6 +14,7 @@ import { statusBoardColors, statusLabels } from '@/utils/statusLabels';
 import type { SharedTaskRecord } from '@/hooks/useProjectTasks';
 import { SharedTaskCard } from './SharedTaskCard';
 import { BulkDeleteTasksDialog } from '@/components/dialogs/tasks/BulkDeleteTasksDialog';
+import { ImportGitHubIssuesDialog } from '@/components/dialogs/tasks/ImportGitHubIssuesDialog';
 import { taskKeys } from '@/hooks/useTask';
 import { taskRelationshipsKeys } from '@/hooks/useTaskRelationships';
 
@@ -76,6 +77,10 @@ function TaskKanbanBoard({
     [columns, projectId, queryClient]
   );
 
+  const handleImportIssues = useCallback(() => {
+    ImportGitHubIssuesDialog.show({ projectId });
+  }, [projectId]);
+
   return (
     <KanbanProvider onDragEnd={onDragEnd}>
       {Object.entries(columns).map(([status, items]) => {
@@ -90,6 +95,7 @@ function TaskKanbanBoard({
               onClearColumn={
                 hasOwnTasks ? () => handleClearColumn(statusKey) : undefined
               }
+              onImportIssues={statusKey === 'todo' ? handleImportIssues : undefined}
             />
             <KanbanCards>
               {items.map((item, index) => {

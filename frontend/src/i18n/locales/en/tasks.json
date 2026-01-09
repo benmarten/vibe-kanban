@@ -19,7 +19,8 @@
   "actions": {
     "addTask": "Add task",
     "clearColumn": "Clear done tasks",
-    "clearColumnName": "Clear {{name}} tasks"
+    "clearColumnName": "Clear {{name}} tasks",
+    "importIssues": "Import GitHub Issues"
   },
   "filters": {
     "sharedToggleAria": "Toggle shared tasks",

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { KanbanCard } from '@/components/ui/shadcn-io/kanban';
-import { GitPullRequest, Link, Loader2, XCircle } from 'lucide-react';
+import { Github, GitPullRequest, Link, Loader2, XCircle } from 'lucide-react';
 import type { TaskWithAttemptStatus } from 'shared/types';
 import { ActionsDropdown } from '@/components/ui/actions-dropdown';
 import { Button } from '@/components/ui/button';
@@ -109,7 +109,21 @@ export function TaskCard({
               : undefined
           }
           left={
-            task.open_pr ? (
+            task.github_issue_url && task.github_issue_number != null ? (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(task.github_issue_url!, '_blank');
+                }}
+                onPointerDown={(e) => e.stopPropagation()}
+                onMouseDown={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded bg-green-100/60 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs hover:underline"
+                aria-label={`GitHub Issue #${String(task.github_issue_number)}`}
+              >
+                <Github className="h-3 w-3" />
+                <span>#{String(task.github_issue_number)}</span>
+              </button>
+            ) : task.open_pr ? (
               <button
                 onClick={(e) => {
                   e.stopPropagation();
